@@ -1,0 +1,23 @@
+# =============================================================================
+# Sub2API 源码构建覆盖配置
+# =============================================================================
+# 用途：把官方 compose 里的 `image: weishaw/sub2api:latest`（上游镜像，
+#       不含本项目自己的改动）替换为「用当前源码本地构建」。
+#
+# 用法（在 deploy/ 目录）：
+#   docker compose -f docker-compose.yml -f docker-compose.source.yml up -d --build
+#
+# 说明：Dockerfile 是自包含的（Stage 1 构建前端 → Stage 2 构建 Go 并把前端
+#       嵌入二进制），因此构建产物一定包含前端改动，无需额外步骤。
+#       构建机需可访问 goproxy.cn（国内网络），已由 Dockerfile 默认 ARG 处理。
+# =============================================================================
+
+services:
+  sub2api:
+    image: sub2api-local:latest
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        # 与 backend/go.mod 中 `go 1.27.3` 保持一致，改版本时同步这里
+        GOLANG_IMAGE: golang:1.27.3-alpine

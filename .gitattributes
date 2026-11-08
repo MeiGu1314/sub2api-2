@@ -1,0 +1,38 @@
+# 确保所有 SQL 迁移文件使用 LF 换行符
+backend/migrations/*.sql text eol=lf
+
+# Go 源代码文件
+*.go text eol=lf
+
+# 前端 源代码文件
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.vue text eol=lf
+
+# Shell 脚本
+*.sh text eol=lf
+
+# YAML/YML 配置文件
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Dockerfile
+Dockerfile text eol=lf
+
+# 兜底：其余文本文件一律以 LF 存储，避免 Windows 检出后再推到仓库
+# 带入 CRLF，导致 Linux 容器内 sh 脚本 / 配置文件解析失败
+* text=auto eol=lf
+
+# 二进制资源不做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.zip binary
+*.gz binary
